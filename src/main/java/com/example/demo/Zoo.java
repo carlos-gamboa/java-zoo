@@ -48,68 +48,65 @@ public class Zoo {
         int animalIndex;
         int coupleIndex;
         while (LocalTime.now().isBefore(closingTime)) {
-            switch (this.random.nextInt(6)) {
-                case 0:
+            double randomAction = this.random.nextDouble();
+            if (randomAction < 0.05) {
+                if(this.people.size() > 1) {
                     zookeeperIndex = this.random.nextInt(this.people.size());
-                    this.people.get(zookeeperIndex).clean();
-                    break;
-                case 1:
+                    ArrayList<Species> animals = this.people.get(zookeeperIndex).quit();
+                    this.reasignAnimals(zookeeperIndex, animals);
+                    System.out.println("&& All the animals are reassigned");
+                }
+            }
+            else if (randomAction < 0.1) {
+                if(this.people.size() > 1) {
                     zookeeperIndex = this.random.nextInt(this.people.size());
-                    this.people.get(zookeeperIndex).feedAnimal();
-                    break;
-                case 2:
-                    do {
-                        animalIndex = random.nextInt(this.animals.size());
-                    } while(!this.animals.get(animalIndex).isAlive());
-                    do {
-                        coupleIndex = random.nextInt(this.animals.size());
-                    } while(!this.animals.get(coupleIndex).isAlive());
-                    Species baby = this.animals.get(animalIndex).mate(this.animals.get(coupleIndex));
-                    if (baby != null) {
-                        this.animals.add(baby);
-                        zookeeperIndex = this.random.nextInt(this.people.size());
-                        this.people.get(zookeeperIndex).assignAnimal(baby);
-                    }
-                    break;
-                case 3:
-                    LocalDate birth = LocalDate.now();
-                    Species species = new Species(AnimalPool.getRandomName(), "M", birth, null, random.nextInt(250)+1, AnimalPool.getRandomSpecies(), null, this.random.nextDouble());
-                    this.buyAnimal(species);
-                    break;
-                case 4:
-                    Zookeeper person = new Zookeeper(this.animals, AnimalPool.getRandomName(), this.random.nextInt(60) + 16);
-                    this.hireEmployee(person);
-                    break;
-                case 5:
-
-                    do {
-                        animalIndex = random.nextInt(this.animals.size());
-                    } while (!this.animals.get(animalIndex).isAlive());
-                    this.animals.get(animalIndex).die();
-                break;
-
-  case 6:
-                    if(this.people.size()>1) {
-                        zookeeperIndex = this.random.nextInt(this.people.size());
-                        ArrayList<Species> animals = this.people.get(zookeeperIndex).wasFired();
-                        this.reasigAnimals(zookeeperIndex, animals);
-                        System.out.println("&& All the animals are reassigned");
-                    }
-                    break;
-                case 7:
-                    if(this.people.size()>1) {
-                        zookeeperIndex = this.random.nextInt(this.people.size());
-                        ArrayList<Species> animals = this.people.get(zookeeperIndex).quit();
-                        this.reasigAnimals(zookeeperIndex, animals);
-                        System.out.println("&& All the animals are reassigned");
-                    }
-                    break;
+                    ArrayList<Species> animals = this.people.get(zookeeperIndex).wasFired();
+                    this.reasignAnimals(zookeeperIndex, animals);
+                    System.out.println("&& All the animals are reassigned");
+                }
+            }
+            else if (randomAction < 0.2) {
+                do {
+                    animalIndex = random.nextInt(this.animals.size());
+                } while (!this.animals.get(animalIndex).isAlive());
+                this.animals.get(animalIndex).die();
+            }
+            else if (randomAction < 0.45) {
+                zookeeperIndex = this.random.nextInt(this.people.size());
+                this.people.get(zookeeperIndex).feedAnimal();
+            }
+            else if (randomAction < 0.6) {
+                zookeeperIndex = this.random.nextInt(this.people.size());
+                this.people.get(zookeeperIndex).clean();
+            }
+            else if (randomAction < 0.7) {
+                do {
+                    animalIndex = random.nextInt(this.animals.size());
+                } while(!this.animals.get(animalIndex).isAlive());
+                do {
+                    coupleIndex = random.nextInt(this.animals.size());
+                } while(!this.animals.get(coupleIndex).isAlive());
+                Species baby = this.animals.get(animalIndex).mate(this.animals.get(coupleIndex));
+                if (baby != null) {
+                    this.animals.add(baby);
+                    zookeeperIndex = this.random.nextInt(this.people.size());
+                    this.people.get(zookeeperIndex).assignAnimal(baby);
+                }
+            }
+            else if (randomAction < 0.85) {
+                LocalDate birth = LocalDate.now();
+                Species species = new Species(AnimalPool.getRandomName(), "M", birth, null, random.nextInt(250)+1, AnimalPool.getRandomSpecies(), null, this.random.nextDouble());
+                this.buyAnimal(species);
+            }
+            else if (randomAction < 1) {
+                Zookeeper person = new Zookeeper(this.animals, AnimalPool.getRandomName(), this.random.nextInt(60) + 16);
+                this.hireEmployee(person);
             }
             this.waitZoo();
         }
     }
 
-    private void reasigAnimals(int zookeeperIndex, ArrayList<Species> animals){
+    private void reasignAnimals(int zookeeperIndex, ArrayList<Species> animals){
         this.people.remove(zookeeperIndex);
         for (int i = 0; i < animals.size(); i++) {
             zookeeperIndex = this.random.nextInt(this.people.size());

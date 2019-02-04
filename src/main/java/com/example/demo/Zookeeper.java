@@ -53,6 +53,7 @@ public class Zookeeper extends Person implements Employee {
         StringBuilder stringBuilder = new StringBuilder();
         for (Species anAnimalsInCharge : this.animalsInCharge) {
             stringBuilder.append(anAnimalsInCharge.getName());
+            stringBuilder.append(", ");
         }
         return stringBuilder.toString();
     }

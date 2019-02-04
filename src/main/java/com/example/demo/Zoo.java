@@ -77,8 +77,34 @@ public class Zoo {
                     Zookeeper person = new Zookeeper(AnimalPool.getRandomName(), this.random.nextInt(60) + 16);
                     this.hireEmployee(person);
                     break;
+                case 5:
+                    break;
+                case 6:
+                    if(this.people.size()>1) {
+                        zookeeperIndex = this.random.nextInt(this.people.size());
+                        ArrayList<Species> animals = this.people.get(zookeeperIndex).wasFired();
+                        this.reasigAnimals(zookeeperIndex, animals);
+                        System.out.println("&& All the animals are reassigned");
+                    }
+                    break;
+                case 7:
+                    if(this.people.size()>1) {
+                        zookeeperIndex = this.random.nextInt(this.people.size());
+                        ArrayList<Species> animals = this.people.get(zookeeperIndex).quit();
+                        this.reasigAnimals(zookeeperIndex, animals);
+                        System.out.println("&& All the animals are reassigned");
+                    }
+                    break;
             }
             this.waitZoo();
+        }
+    }
+
+    private void reasigAnimals(int zookeeperIndex, ArrayList<Species> animals){
+        this.people.remove(zookeeperIndex);
+        for (int i = 0; i < animals.size(); i++) {
+            zookeeperIndex = this.random.nextInt(this.people.size());
+            this.people.get(zookeeperIndex).assignAnimal(animals.get(i));
         }
     }
 

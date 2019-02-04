@@ -36,4 +36,16 @@ public class Zookeeper extends Person implements Employee {
         }
         return stringBuilder.toString();
     }
+
+    public  ArrayList<Species>  wasFired(){
+        System.out.println("&& " + this.getName() +" was fired.");
+        System.out.println("&& " + this.name + " had: " + this.getAnimalsInCharge());
+        return this.animalsInCharge;
+    }
+
+    public ArrayList<Species>  quit(){
+        System.out.println("&& " + this.getName() +" quit.");
+        System.out.println("&& " + this.name + " had: " + this.getAnimalsInCharge());
+        return this.animalsInCharge;
+    }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Animal {
     protected String name;
     protected String gender;
+    protected boolean isAlive;
     protected LocalDate dateOfBirth;
     protected LocalDate lastTimeFed;
 
@@ -13,6 +14,7 @@ public class Animal {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.lastTimeFed = lastTimeFed;
+        this.isAlive = true;
     }
 
     public String getName() {
@@ -21,5 +23,9 @@ public class Animal {
 
     public void setLastTimeFed(LocalDate lastTimeFed) {
         this.lastTimeFed = lastTimeFed;
+    }
+
+    public boolean isAlive() {
+        return this.isAlive;
     }
 }

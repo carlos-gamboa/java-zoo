@@ -51,6 +51,11 @@ public class Species extends Vertebrate {
         return null;
     }
 
+    public void die() {
+        super.isAlive = false;
+        System.err.println(this.toString() + " just died.");
+    }
+
     public boolean equals(Species species) {
         return this.speciesName.equals(species.speciesName);
     }

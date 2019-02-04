@@ -48,19 +48,22 @@ public class Zoo {
         int animalIndex;
         int coupleIndex;
         while (LocalTime.now().isBefore(closingTime)) {
-            switch (this.random.nextInt(4)) {
+            switch (this.random.nextInt(6)) {
                 case 0:
                     zookeeperIndex = this.random.nextInt(this.people.size());
                     this.people.get(zookeeperIndex).clean();
                     break;
                 case 1:
                     zookeeperIndex = this.random.nextInt(this.people.size());
-                    animalIndex = random.nextInt(this.animals.size());
-                    this.people.get(zookeeperIndex).feedAnimal(this.animals.get(animalIndex));
+                    this.people.get(zookeeperIndex).feedAnimal();
                     break;
                 case 2:
-                    animalIndex = random.nextInt(this.animals.size());
-                    coupleIndex = random.nextInt(this.animals.size());
+                    do {
+                        animalIndex = random.nextInt(this.animals.size());
+                    } while(!this.animals.get(animalIndex).isAlive());
+                    do {
+                        coupleIndex = random.nextInt(this.animals.size());
+                    } while(!this.animals.get(coupleIndex).isAlive());
                     Species baby = this.animals.get(animalIndex).mate(this.animals.get(coupleIndex));
                     if (baby != null) {
                         this.animals.add(baby);
@@ -74,8 +77,14 @@ public class Zoo {
                     this.buyAnimal(species);
                     break;
                 case 4:
-                    Zookeeper person = new Zookeeper(AnimalPool.getRandomName(), this.random.nextInt(60) + 16);
+                    Zookeeper person = new Zookeeper(this.animals, AnimalPool.getRandomName(), this.random.nextInt(60) + 16);
                     this.hireEmployee(person);
+                    break;
+                case 5:
+                    do {
+                        animalIndex = random.nextInt(this.animals.size());
+                    } while (!this.animals.get(animalIndex).isAlive());
+                    this.animals.get(animalIndex).die();
                     break;
             }
             this.waitZoo();
@@ -112,7 +121,7 @@ public class Zoo {
     }
 
     public void hireEmployee () {
-        Zookeeper newEmployee = new Zookeeper(AnimalPool.getRandomName(), this.random.nextInt(50) + 16);
+        Zookeeper newEmployee = new Zookeeper(this.animals, AnimalPool.getRandomName(), this.random.nextInt(50) + 16);
         this.people.add(newEmployee);
         System.out.println("## The zoo just hired " + newEmployee.getName());
     }

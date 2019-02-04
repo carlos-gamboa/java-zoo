@@ -43,7 +43,7 @@ public class Zoo {
     }
 
     public void startZoo() {
-        LocalTime closingTime = this.openingTime.plusSeconds(20);
+        LocalTime closingTime = this.openingTime.plusMinutes(2);
         int zookeeperIndex;
         int animalIndex;
         int coupleIndex;
@@ -71,7 +71,11 @@ public class Zoo {
                 } while (!this.animals.get(animalIndex).isAlive());
                 this.animals.get(animalIndex).die();
             }
-            else if (randomAction < 0.45) {
+            else if (randomAction < 0.3) {
+                zookeeperIndex = this.random.nextInt(this.people.size());
+                this.people.get(zookeeperIndex).askForMoney();
+            }
+            else if (randomAction < 0.5) {
                 zookeeperIndex = this.random.nextInt(this.people.size());
                 this.people.get(zookeeperIndex).feedAnimal();
             }
@@ -114,10 +118,10 @@ public class Zoo {
         }
     }
 
-    public void waitZoo() {
+    private void waitZoo() {
         try
         {
-            Thread.sleep(500);
+            Thread.sleep(1250);
         }
         catch(InterruptedException ex)
         {
@@ -125,7 +129,7 @@ public class Zoo {
         }
     }
 
-    public void buyAnimal() {
+    private void buyAnimal() {
         LocalDate today = LocalDate.now();
         Species newAnimal = new Species(AnimalPool.getRandomName(), "F", today, null,
                 8, AnimalPool.getRandomSpecies());
@@ -133,23 +137,23 @@ public class Zoo {
         System.out.println("$$ The zoo bought " + newAnimal.toString());
     }
 
-    public void buyAnimal(Species animal) {
+    private void buyAnimal(Species animal) {
         this.animals.add(animal);
         System.out.println("$$ The zoo bought " + animal.toString());
     }
 
-    public void hireEmployee (Zookeeper employee) {
+    private void hireEmployee (Zookeeper employee) {
         this.people.add(employee);
         System.out.println("## The zoo just hired " + employee.getName());
     }
 
-    public void hireEmployee () {
+    private void hireEmployee () {
         Zookeeper newEmployee = new Zookeeper(this.animals, AnimalPool.getRandomName(), this.random.nextInt(50) + 16);
         this.people.add(newEmployee);
         System.out.println("## The zoo just hired " + newEmployee.getName());
     }
 
-    public void assignAnimalsToEmployees() {
+    private void assignAnimalsToEmployees() {
         int employeeIndex;
         for (Species anAnimal : this.animals) {
             employeeIndex = this.random.nextInt(this.people.size());

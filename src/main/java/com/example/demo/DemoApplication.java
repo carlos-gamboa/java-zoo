@@ -8,7 +8,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		Zoo zoo = new Zoo();
-		zoo.stockZoo(10, 2);
+		zoo.stockZoo(15, 4);
 		zoo.openZoo();
 	}
 

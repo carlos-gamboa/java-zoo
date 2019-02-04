@@ -17,7 +17,7 @@ public class Animal {
         this.isAlive = true;
     }
 
-    public String getName() {
+    protected String getName() {
         return name;
     }
 

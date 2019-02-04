@@ -6,7 +6,10 @@ public class AnimalPool {
 
 
     public static String getRandomSpecies() {
-        String[] species = new String[] {"Cow", "Horse", "Elephant"};
+        String[] species = new String[] {"Cow", "Horse", "Elephant", "Penguin", "Camel", "Koala",
+                "Turtle", "Bear", "Otter", "Seal", "Rabbit", "Wolf", "Kangaroo", "Wallaby", "Giraffe",
+                "Zebra", "Lion", "Ox", "Whale", "Okapi", "Tiger", "Hippo", "Fox", "Anaconda", "Dingo",
+                "Monkey", "Rhino", "Hyena"};
         Random random = new Random();
         int n = random.nextInt(species.length);
         return species[n];
